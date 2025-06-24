@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <odoo>
   <record id="view_picking_form_inherit" model="ir.ui.view">
     <field name="name">stock.picking.form.delivery.extended</field>
@@ -11,36 +10,26 @@
           <field name="delivery_method"/>
         </group>
       </xpath>
+
       <xpath expr="//sheet" position="inside">
         <group>
-          
           <group string="Delivery Vehicle Info" nolabel="1">
-              <field name="vehicle_id" string="Vehicle" readonly="delivery_started"/>
-              <field name="driver_id" string="Driver" readonly="delivery_started"/>
-              <field name="helper_id" string="Helper" readonly="delivery_started"/>
+              <field name="vehicle_id" string="Vehicle"/>
+              <field name="driver_id" string="Driver"/>
+              <field name="helper_id" string="Helper"/>
           </group>
 
-          <group  string="Third Party Service Provider" invisible="delivery_method != 'external_delivery'">            
+          <group string="Third Party Service Provider" invisible="delivery_method != 'external_delivery'">            
             <field name="provider_id" string="Name"/>
             <field name="provider_mobile" string="Contact Number" readonly="1"/>    
           </group>
 
           <group string="Delivery Time Info" nolabel="1">
-              <field name="start_time" string="Delivery Start Time" readonly="1"/>
-              <field name="end_time" string="Delivery End Time" readonly="1"/>
+              <field name="start_time" string="Delivery Start Time"/>
+              <field name="end_time" string="Delivery End Time"/>
               <field name="total_delivery_time" string="Total Duration" readonly="1"/>
           </group>
         </group>
-      </xpath>
-
-      <xpath expr="//header" position="inside">
-        <button name="action_start_delivery" type="object" string="Start"
-          class="btn-primary"
-          invisible="state != 'done' or start_time != False or end_time != False"/>
-        <button name="action_end_delivery" type="object" string="End"
-          class="btn-danger"
-          invisible="start_time == False or end_time != False"/>
-        
       </xpath>
     </field>
   </record>
