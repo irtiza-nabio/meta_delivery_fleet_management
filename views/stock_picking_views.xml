@@ -6,16 +6,23 @@
     <field name="model">stock.picking</field>
     <field name="inherit_id" ref="stock.view_picking_form"/>
     <field name="arch" type="xml">
+      <xpath expr="//sheet/field[@name='picking_properties']" position="after">
+        <group>
+          <field name="delivery_method"/>
+        </group>
+      </xpath>
       <xpath expr="//sheet" position="inside">
         <group>
+          
           <group string="Delivery Vehicle Info" nolabel="1">
               <field name="vehicle_id" string="Vehicle" readonly="delivery_started"/>
               <field name="driver_id" string="Driver" readonly="delivery_started"/>
-              <field name="helper_id" readonly="delivery_started"/>
-              <group  string="Third Party Service Provider" invisible="delivery_subtype != 'external_delivery'">            
-                <field name="provider_id" string="Name"/>
-                <field name="provider_mobile" string="Contact Number" readonly="1"/>
-              </group> 
+              <field name="helper_id" string="Helper" readonly="delivery_started"/>
+          </group>
+
+          <group  string="Third Party Service Provider" invisible="delivery_method != 'external_delivery'">            
+            <field name="provider_id" string="Name"/>
+            <field name="provider_mobile" string="Contact Number" readonly="1"/>    
           </group>
 
           <group string="Delivery Time Info" nolabel="1">
@@ -38,6 +45,3 @@
     </field>
   </record>
 </odoo>
-
-
-<!-- invisible="delivery_subtype != 'external'" -->

@@ -19,7 +19,6 @@
     "data": [
         "views/res_partner_views.xml",
         "views/stock_picking_views.xml",
-        "data/picking_type_data.xml",
         "security/ir.model.access.csv"
     ],
     "installable": True,
