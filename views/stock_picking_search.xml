@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_search_delivery_extended" model="ir.ui.view">
+        <field name="name">stock.picking.search.delivery.extended</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <!-- Delivery Method Filters -->
+                <separator/>
+                <filter name="filter_internal" 
+                        string="Internal Delivery" 
+                        domain="[('delivery_method', '=', 'internal_delivery')]"
+                        help="Show internal deliveries only"/>
+                <filter name="filter_external" 
+                        string="External Delivery" 
+                        domain="[('delivery_method', '=', 'external_delivery')]"
+                        help="Show external deliveries only"/>
+
+                <!-- Driver / Helper / Provider Filters -->
+                <separator/>
+                <filter name="filter_has_driver" 
+                        string="Has Driver" 
+                        domain="[('driver_id', '!=', False)]"
+                        help="Show deliveries with assigned drivers"/>
+                <filter name="filter_no_driver" 
+                        string="No Driver Assigned" 
+                        domain="[('driver_id', '=', False)]"
+                        help="Show deliveries without drivers"/>
+                        
+                <filter name="filter_has_helper" 
+                        string="Has Helper" 
+                        domain="[('helper_id', '!=', False)]"
+                        help="Show deliveries with assigned helpers"/>
+                        
+                <filter name="filter_has_provider" 
+                        string="Has Third Party Provider" 
+                        domain="[('provider_id', '!=', False)]"
+                        help="Show deliveries with third party providers"/>
+                        
+                <filter name="filter_has_vehicle" 
+                        string="Has Vehicle" 
+                        domain="[('vehicle_id', '!=', False)]"
+                        help="Show deliveries with assigned vehicles"/>
+
+            
+
+                <!-- Duration-based Filters -->
+                <separator/>
+                <filter name="filter_has_duration" 
+                        string="Has Delivery Duration" 
+                        domain="[('total_delivery_time', '!=', ''), ('total_delivery_time', '!=', False)]"
+                        help="Show deliveries with calculated duration"/>
+                        
+                <filter name="filter_no_duration" 
+                        string="No Duration Calculated" 
+                        domain="['|', ('total_delivery_time', '=', ''), ('total_delivery_time', '=', False)]"
+                        help="Show deliveries without duration data"/>
+
+                <!-- Status-based Filters using standard fields -->
+                <separator/>
+                <filter name="filter_ready_to_transfer" 
+                        string="Ready to Transfer" 
+                        domain="[('state', '=', 'assigned')]"
+                        help="Show transfers ready to be processed"/>
+                        
+                <filter name="filter_waiting_availability" 
+                        string="Waiting Availability" 
+                        domain="[('state', '=', 'waiting')]"
+                        help="Show transfers waiting for stock availability"/>
+
+
+                <!-- Group by options using your custom fields -->
+                <group expand="0" string="Group By">
+                    <filter name="group_by_delivery_method" 
+                            string="Delivery Method" 
+                            context="{'group_by': 'delivery_method'}"
+                            help="Group by delivery method"/>
+                    <filter name="group_by_driver" 
+                            string="Driver" 
+                            context="{'group_by': 'driver_id'}"
+                            help="Group by assigned driver"/>
+                    <filter name="group_by_helper" 
+                            string="Helper" 
+                            context="{'group_by': 'helper_id'}"
+                            help="Group by assigned helper"/>
+                    <filter name="group_by_vehicle" 
+                            string="Vehicle" 
+                            context="{'group_by': 'vehicle_id'}"
+                            help="Group by assigned vehicle"/>
+                    <filter name="group_by_provider" 
+                            string="Third Party Provider" 
+                            context="{'group_by': 'provider_id'}"
+                            help="Group by third party provider"/>
+                    <filter name="group_by_start_date" 
+                            string="Start Date" 
+                            context="{'group_by': 'start_time:day'}"
+                            help="Group by start date"/>
+                    <filter name="group_by_end_date" 
+                            string="End Date" 
+                            context="{'group_by': 'end_time:day'}"
+                            help="Group by end date"/>
+                    <filter name="group_by_picking_type" 
+                            string="Operation Type" 
+                            context="{'group_by': 'picking_type_id'}"
+                            help="Group by operation type"/>
+                    <filter name="group_by_state" 
+                            string="Status" 
+                            context="{'group_by': 'state'}"
+                            help="Group by transfer status"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Optional: Add search fields for your custom fields -->
+    <record id="stock_picking_search_fields_extended" model="ir.ui.view">
+        <field name="name">stock.picking.search.fields.extended</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="driver_id" string="Driver"/>
+                <field name="helper_id" string="Helper"/>
+                <field name="vehicle_id" string="Vehicle"/>
+                <field name="provider_id" string="Provider"/>
+                <field name="provider_mobile" string="Provider Mobile"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

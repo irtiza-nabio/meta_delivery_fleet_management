@@ -17,6 +17,8 @@
         "base", "contacts", "stock", "fleet"
     ],
     "data": [
+        'views/res_partner_search.xml',
+        'views/stock_picking_search.xml',
         "views/res_partner_views.xml",
         "views/stock_picking_views.xml",
         "security/ir.model.access.csv"

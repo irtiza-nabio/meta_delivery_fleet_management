@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_partner_search_driver_helper" model="ir.ui.view">
+        <field name="name">res.partner.search.driver.helper</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <!-- Driver/Helper/Provider Filters -->
+                <separator/>
+                <filter name="filter_is_driver" 
+                        string="Driver" 
+                        domain="[('is_driver', '=', True)]"
+                        help="Show only drivers"/>
+                <filter name="filter_is_helper" 
+                        string="Helper" 
+                        domain="[('is_helper', '=', True)]"
+                        help="Show only helpers"/>
+                <filter name="filter_is_provider" 
+                        string="Third Party Provider" 
+                        domain="[('is_third_party_provider', '=', True)]"
+                        help="Show only third party providers"/>
+                
+                <!-- Additional Group By options -->
+                <group expand="0" string="Group By">
+                    <filter name="group_by_driver" 
+                            string="By Driver Status" 
+                            context="{'group_by': 'is_driver'}"
+                            help="Group by driver status"/>
+                    <filter name="group_by_helper" 
+                            string="By Helper Status" 
+                            context="{'group_by': 'is_helper'}"
+                            help="Group by helper status"/>
+                    <filter name="group_by_provider" 
+                            string="By Provider Status" 
+                            context="{'group_by': 'is_third_party_provider'}"
+                            help="Group by provider status"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
